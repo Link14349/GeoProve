@@ -46,16 +46,18 @@ class Radial extends GObject {
 	}
 }
 class Angle extends GObject {
-	constructor(v1, v2, point = null) {
+	constructor(v1, v2, nv1, nv2, point = null) {
 		super('a');
 		this.v1 = v1;
 		this.v2 = v2;
+		this.nv1 = nv1;
+		this.nv2 = nv2;
 		this.point = point;
 	}
-	equal(a) {
-		if ((this.v1.isParallel(a.v1) && this.v2.isParallel(a.v2)) || (this.v2.isParallel(a.v1) && this.v2.isParallel(a.v1))) return true;
-		return false;
-	}
+	// equal(a) {
+	// 	if ((this.v1.isParallel(a.v1) && this.v2.isParallel(a.v2)) || (this.v2.isParallel(a.v1) && this.v2.isParallel(a.v1))) return true;
+	// 	return false;
+	// }
 }
 
 module.exports.Vector = Vector;
