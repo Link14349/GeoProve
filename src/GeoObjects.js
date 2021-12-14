@@ -1,6 +1,7 @@
 class Vector {
 	constructor() {
 		this.pl = [];
+		this.neg = null;
 	}
 	parallel(v) {
 		if (this == v) return;
@@ -44,10 +45,21 @@ class SLine extends GObject {
 		for (let p of point) p.addLine(this);
 		this.direction = new Vector();
 		this.ndirection = new Vector();
+		this.direction.neg = this.ndirection;
+		this.ndirection.neg = this.direction;
 	}
 	parallel(s) {
 		this.direction.parallel(s.direction);
 		this.ndirection.parallel(s.ndirection);
+	}
+}
+class LineSegment extends GObject {
+	constructor(p1, p2) {
+		super("l");
+		this.p1 = p1;
+		this.p2 = p2;
+		this.line = findLineTrough(p1, p2);
+		this.length = null;
 	}
 }
 class Radial extends GObject {
@@ -58,14 +70,14 @@ class Radial extends GObject {
 	}
 }
 class Angle extends GObject {
-	constructor(v1, v2, nv1, nv2, point = null, name = null) {
+	constructor(v1, v2, point = null, value = null) {
 		super('a');
 		this.v1 = v1;
 		this.v2 = v2;
-		this.nv1 = nv1;
-		this.nv2 = nv2;
+		this.nv1 = v1.neg;
+		this.nv2 = v2.neg;
 		this.point = point;
-		// this.name = name;
+		this.value = value;
 	}
 	// equal(a) {
 	// 	if ((this.v1.isParallel(a.v1) && this.v2.isParallel(a.v2)) || (this.v2.isParallel(a.v1) && this.v2.isParallel(a.v1))) return true;
@@ -73,8 +85,23 @@ class Angle extends GObject {
 	// }
 }
 class Triangle extends GObject {
-	constructor(p1 = new Point, p2 = new Point, p3 = new Point) {
-
+	constructor(A = new Point, B = new Point, C = new Point) {
+		super("t");
+		this.A = A;
+		this.B = B;
+		this.C = C;
+		this.AB = new LineSegment(A, B);
+		this.AC = new LineSegment(A, C);
+		this.BC = new LineSegment(B, C);
+		this.alpha = new Angle(this.AB.line.direction, this.AC.line.direction);
+		this.beta = new Angle(this.AB.line.direction, this.BC.line.direction);
+		this.gamma = new Angle(this.AC.line.direction, this.BC.line.direction);
+	}
+	check() {
+		if (typeof this.alpha.value == "Number" && typeof this.beta.value == "Number" && typeof this.gaama.value == "Number") {
+			return this.alpha.value + this.beta.value + this.gamma.value == 180;
+		}
+		return true;
 	}
 }
 
@@ -88,6 +115,8 @@ function findLineTrough(p1, p2) {
 
 module.exports.Vector = Vector;
 module.exports.GObject = GObject;
+module.exports.Point = Point;
+module.exports.LineSegment = LineSegment;
 module.exports.SLine = SLine;
 module.exports.Radial = Radial;
 module.exports.Angle = Angle;
