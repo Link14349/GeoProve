@@ -4,4 +4,4 @@ const { laws } = require("./laws");
 
 let A = new Point, B = new Point, C = new Point;
 let ABC = new Triangle(A, B, C);
-console.log(ABC);
+console.log(laws[2].check(ABC));

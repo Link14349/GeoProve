@@ -9,8 +9,8 @@ class Item {
 }
 
 class Term {
-	constructor(items) {
-		this.items = items;
+	constructor() {
+		this.items = arguments;
 	}
 	simplificate() {
 		let n = 1;
@@ -30,8 +30,8 @@ class Term {
 }
 
 class Polynomial {
-	constructor(terms) {
-		this.terms = terms;
+	constructor() {
+		this.terms = arguments;
 	}
 	toString() {
 		let s = "";
@@ -56,5 +56,6 @@ class Equal extends Relation {
 
 module.exports.Item = Item;
 module.exports.Term = Term;
+module.exports.Polynomial = Polynomial;
 module.exports.Relation = Relation;
 module.exports.Equal = Equal;
