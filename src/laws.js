@@ -8,5 +8,10 @@ laws.push(new Law("aa", (angle1, angle2) => {
 		return new Equal(angle1, angle2);
 	return null;
 }));// 对顶角定理
+laws.push(new Law("aa", (angle1, angle2) => {
+	if ((angle1.v1.isParallel(angle2.v1) && angle1.v2.isParallel(angle2.v2)) || (angle1.v2.isParallel(angle2.v1) && angle1.v1.isParallel(angle2.v2)))
+		return new Equal(angle1, angle2);
+	return null;
+}));// 同位角定理
 
 module.exports.laws = laws;

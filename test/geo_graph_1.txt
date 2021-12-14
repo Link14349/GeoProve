@@ -1,0 +1,8 @@
+straight line l1
+straight line l2
+l1 // l2
+straight line l3
+phase point A s1, s3
+phase point B s2, s3
+angle alpha A, s1.d, s3.d
+angle beta B, s2.d, s3.d

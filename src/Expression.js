@@ -3,11 +3,41 @@ class Item {
 		this.value = value;
 		this.power = power;
 	}
+	toString() {
+		return this.value.toString() + "^" + this.power.toString();
+	}
 }
 
 class Term {
 	constructor(items) {
 		this.items = items;
+	}
+	simplificate() {
+		let n = 1;
+		for (let i in this.items) {
+			if (typeof this.items[i] == "Number") {
+				n *= Math.power(this.items[i]);
+				this.items.splice(i, 1);
+			}
+		}
+		this.items.splice(0, 0, n);
+	}
+	toString() {
+		let s = "";
+		for (let i of items) s += i.toString();
+		return s;
+	}
+}
+
+class Polynomial {
+	constructor(terms) {
+		this.terms = terms;
+	}
+	toString() {
+		let s = "";
+		for (let i = 0; i < this.terms.length - 1; i++) s += this.terms[i].toString();
+		s += this.terms[this.terms.length - 1].toString();
+		return s;
 	}
 }
 
